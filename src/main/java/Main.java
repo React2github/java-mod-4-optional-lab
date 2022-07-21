@@ -6,12 +6,19 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            String bookName = scanner.nextLine();
+            Optional<String> optAuthor = Book.getAuthor(bookName);
+   
+            // write conditional logic; if author is present 
+            // return book name along with author
+            // otherwise return 'unknown' string 
 
-        String bookName = scanner.nextLine();
-        Optional<String> optAuthor = Book.getAuthor(bookName);
-
-        // write your code here
+            optAuthor.ifPresentOrElse(
+                (author) -> System.out.println(bookName + " written by " + author),
+                () -> System.out.println("Unknown")
+            );
+        }
     }
 }
 
